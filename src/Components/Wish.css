@@ -1,0 +1,68 @@
+/* src/Components/Wish.css */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+  background: #3b4465;
+}
+
+/* PAGE CONTENT */
+.input-page {
+  height: calc(100vh - 60px); /* Adjust for header height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.large-textarea-wrapper {
+  position: relative;
+  width: 80vw;
+  max-width: 700px;
+}
+
+.large-textarea {
+  width: 100%;
+  height: 180px;
+  resize: none;
+  padding: 20px;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  border-radius: 8px;
+  border: 1px solid #cddbef;
+  background: #eef9fe;
+  color: #3b4465;
+  font-family: inherit;
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 0.9rem;
+  color: #7a8aa0;
+  font-family: inherit;
+}
+
+.action-button {
+  min-width: 150px;
+  padding: 10px 25px;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border: none;
+  background: #a7e245;
+  color: #3b4465;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.action-button:hover {
+  background: #8fcb38;
+}

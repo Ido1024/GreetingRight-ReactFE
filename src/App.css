@@ -1,38 +1,101 @@
-.App {
-  text-align: center;
+/* src/App.css */
+
+/* Global Body Styles */
+body {
+  margin: 0;
+  font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+  background: #3b4465; /* Global background */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* HEADER */
+.header {
+  background-color: #2f3754; /* Dark background for the header */
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav-bar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 40px;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-bar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 25px; /* Rounded corners */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Enhanced Hover Effect */
+.nav-bar a:hover {
+  color: #fff; /* Keep the text white */
+  background-color: #4d5a76; /* Darker background color on hover */
+  transform: scale(1.05); /* Slightly scale up the link for a more interactive feel */
+}
+
+.nav-bar a:active {
+  color: #a7e245; /* Green text on active state */
+  background-color: #3c465a; /* Even darker background on active state */
+}
+
+/* PAGE CONTENT */
+.input-page {
+  height: calc(100vh - 60px); /* Adjust for header height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.large-textarea-wrapper {
+  position: relative;
+  width: 80vw;
+  max-width: 700px;
+}
+
+.large-textarea {
+  width: 100%;
+  height: 180px;
+  resize: none;
+  padding: 20px;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  border-radius: 8px;
+  border: 1px solid #cddbef;
+  background: #eef9fe;
+  color: #3b4465;
+  font-family: inherit;
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 0.9rem;
+  color: #7a8aa0;
+  font-family: inherit;
+}
+
+.action-button {
+  min-width: 150px;
+  padding: 10px 25px;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border: none;
+  background: #a7e245;
+  color: #3b4465;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.action-button:hover {
+  background: #8fcb38;
 }
