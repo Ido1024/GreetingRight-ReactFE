@@ -1,5 +1,6 @@
 // src/Components/LoginSignup.jsx
 import React, { useState } from 'react'; // Importing React and useState hook
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import './LoginSignup.css'; // Import the CSS file for styles
 
 function LoginSignup() {
@@ -9,6 +10,7 @@ function LoginSignup() {
   const [password, setPassword] = useState(''); // State for the password
   const [confirmPassword, setConfirmPassword] = useState(''); // State for confirming password in signup form
   const [error, setError] = useState(null); // State for handling error messages
+  const navigate = useNavigate(); // Mavigate function from React Router
 
   // Function to switch between login and signup forms
   const handleSwitcher = (form) => {
@@ -41,6 +43,7 @@ function LoginSignup() {
       console.log("Login successful:", data); // Log successful login
 
       setError(null); // Clear error message on successful login
+      navigate('/wish'); // Redirect to Wish page
     } catch (err) {
       setError(err.message); // Set error message on failure
       console.error("Login failed:", err); // Log the error
