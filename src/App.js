@@ -4,6 +4,7 @@ import Wish from './Components/Wish';
 import LoginSignup from './Components/LoginSignup';
 import Starts from './Components/Starts';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Logout from './Components/Logout'; // Import the new Logout component
 
 // Create a functional component for conditional header rendering
 function Header() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/wish" element={<Wish />} />
         <Route path="/" element={<LoginSignup />} />
         <Route path="/starts" element={<Starts />} />
+        <Route path="/logout" element={<Logout />} /> {/* Add the Logout route */}
       </Routes>
     </Router>
   );
