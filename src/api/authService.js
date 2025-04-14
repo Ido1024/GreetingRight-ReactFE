@@ -52,7 +52,21 @@ export async function refreshToken(token) {
   return data;
 }
 
-export function logoutUser() {
-  sessionStorage.removeItem('accessToken');
-  sessionStorage.removeItem('refreshToken');
-}
+export async function logoutUser() {
+    const refreshToken = sessionStorage.getItem('refreshToken');
+  
+    try {
+      await fetch(`${BASE_URL}/logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refreshToken }),
+      });
+    } catch (err) {
+      console.error('Logout request failed:', err);
+    }
+  
+    sessionStorage.clear();
+  }
+  
