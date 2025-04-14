@@ -66,3 +66,15 @@ body {
 .action-button:hover {
   background: #8fcb38;
 }
+.result-box {
+  margin-top: 20px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  width: 80vw;
+  max-width: 700px;
+  color: #3b4465;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
