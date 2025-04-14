@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css'; // Global styles
 import Wish from './Components/Wish';
 import LoginSignup from './Components/LoginSignup';
-import Starts from './Components/Starts';
+import Favorite from './Components/Favorite'; // Updated import
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Logout from './Components/Logout'; // Import the new Logout component
 
@@ -22,7 +22,7 @@ function Header() {
         <a href="/help">Help</a>
         <a href="/history">History</a>
         <a href="/wish">Wish</a>
-        <a href="/starts">Starts</a>
+        <a href="/favorite">Favorite</a> {/* Updated link */}
       </nav>
     </header>
   );
@@ -36,7 +36,7 @@ function App() {
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/wish" element={<Wish />} />
         <Route path="/" element={<LoginSignup />} />
-        <Route path="/starts" element={<Starts />} />
+        <Route path="/favorite" element={<Favorite />} /> {/* Updated route */}
         <Route path="/logout" element={<Logout />} /> {/* Add the Logout route */}
       </Routes>
     </Router>

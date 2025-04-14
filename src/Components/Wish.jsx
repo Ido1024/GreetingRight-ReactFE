@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { generateWish } from '../api/wishService';
 import './Wish.css';
 
 const Wish = () => {
   const [text, setText] = useState('');
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem('favorites') || '[]');
+    setFavorites(stored);
+  }, []);
+
+  const updateFavorites = (newList) => {
+    setFavorites(newList);
+    localStorage.setItem('favorites', JSON.stringify(newList));
+  };
 
   const handleSubmit = async () => {
     if (!text.trim()) return;
@@ -13,16 +25,8 @@ const Wish = () => {
     setResult('');
 
     try {
-      const response = await fetch('http://localhost:5000/generate-wish', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ text }),
-      });
-
-      const data = await response.json();
-      setResult(data.wish || 'No wish returned.');
+      const wish = await generateWish(text);
+      setResult(wish || 'No wish returned.');
     } catch (err) {
       console.error(err);
       setResult('Error generating wish.');
@@ -30,6 +34,18 @@ const Wish = () => {
       setLoading(false);
     }
   };
+
+  const toggleFavorite = () => {
+    if (!result) return;
+
+    const updated = favorites.includes(result)
+      ? favorites.filter((w) => w !== result)
+      : [...favorites, result];
+
+    updateFavorites(updated);
+  };
+
+  const isFavorite = result && favorites.includes(result);
 
   return (
     <div className="input-page">
@@ -50,7 +66,12 @@ const Wish = () => {
 
       {result && (
         <div className="result-box">
-          <h3>Generated Wish:</h3>
+          <div className="wish-header">
+            <h3>Generated Wish:</h3>
+            <span className={`star-icon ${isFavorite ? 'favorited' : ''}`} onClick={toggleFavorite}>
+              ★
+            </span>
+          </div>
           <p>{result}</p>
         </div>
       )}
