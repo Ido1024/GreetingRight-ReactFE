@@ -1,19 +1,18 @@
 import React from 'react';
 import './App.css'; // Global styles
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+
 import Wish from './Components/Wish';
 import LoginSignup from './Components/LoginSignup';
-import Favorite from './Components/Favorite'; // Updated import
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Logout from './Components/Logout'; // Import the new Logout component
+import Favorite from './Components/Favorite';
+import PrivateRoute from './Components/PrivateRoute';
+import Logout from './Components/Logout';
 
-// Create a functional component for conditional header rendering
 function Header() {
-  const location = useLocation(); // Get the current location (URL)
-  
-  // Hide header on login or signup pages
+  const location = useLocation();
   const shouldHideHeader = location.pathname === '/login' || location.pathname === '/';
-  
-  if (shouldHideHeader) return null; // Return nothing if we should hide the header
+
+  if (shouldHideHeader) return null;
 
   return (
     <header className="header">
@@ -22,7 +21,7 @@ function Header() {
         <a href="/help">Help</a>
         <a href="/history">History</a>
         <a href="/wish">Wish</a>
-        <a href="/favorite">Favorite</a> {/* Updated link */}
+        <a href="/favorite">Favorite</a>
       </nav>
     </header>
   );
@@ -31,13 +30,27 @@ function Header() {
 function App() {
   return (
     <Router>
-      <Header /> {/* Render the Header here */}
+      <Header />
       <Routes>
         <Route path="/login" element={<LoginSignup />} />
-        <Route path="/wish" element={<Wish />} />
+        <Route
+          path="/wish"
+          element={
+            <PrivateRoute>
+              <Wish />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/favorite"
+          element={
+            <PrivateRoute>
+              <Favorite />
+            </PrivateRoute>
+          }
+        />
         <Route path="/" element={<LoginSignup />} />
-        <Route path="/favorite" element={<Favorite />} /> {/* Updated route */}
-        <Route path="/logout" element={<Logout />} /> {/* Add the Logout route */}
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </Router>
   );
