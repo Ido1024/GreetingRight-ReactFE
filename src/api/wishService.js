@@ -1,5 +1,5 @@
 const FLASK_API_URL = process.env.REACT_APP_FLASK_URL || 'http://localhost:5000';
-
+// todo rename to wishGeneratorService.js
 const handleWishResponse = async (response) => {
   const contentType = response.headers.get('content-type');
   const isJson = contentType && contentType.includes('application/json');
