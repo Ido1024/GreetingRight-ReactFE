@@ -15,6 +15,20 @@ function Header() {
 
   if (shouldHideHeader) return null;
 
+  const token = sessionStorage.getItem('accessToken');
+  let isAdmin = false;
+
+  if (token) {
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = JSON.parse(atob(base64));
+      isAdmin = jsonPayload.roles && jsonPayload.roles.includes('ROLE_ADMIN');
+    } catch (error) {
+      console.error('Failed to decode token:', error);
+    }
+  }
+
   return (
     <header className="header">
       <nav className="nav-bar">
@@ -23,7 +37,7 @@ function Header() {
         <a href="/history">History</a>
         <a href="/wish">Wish</a>
         <a href="/favorite">Favorite</a>
-        <a href="/admin-panel">Admin Panel</a>
+        {isAdmin && <a href="/admin-panel">Admin Panel</a>}
       </nav>
     </header>
   );
