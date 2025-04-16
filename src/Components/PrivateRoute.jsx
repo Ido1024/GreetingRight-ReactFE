@@ -39,8 +39,8 @@ const PrivateRoute = ({ children, allowedRoles }) => {
   const hasAccess = allowedRoles.some((role) => userRoles.includes(role));
 
   if (!hasAccess) {
-    // Redirect to "not authorized" if the user doesn't have the required role
-    return <Navigate to="/login" replace />;
+    // Redirect to "wish" if the user doesn't have the required role
+    return <Navigate to="/wish" replace />;
   }
 
   return children; // Render the protected component if the user has access
