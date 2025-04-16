@@ -7,6 +7,7 @@ import LoginSignup from './Components/LoginSignup';
 import Favorite from './Components/Favorite';
 import PrivateRoute from './Components/PrivateRoute';
 import Logout from './Components/Logout';
+import AdminPanel from './Components/AdminPanel';
 
 function Header() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function Header() {
         <a href="/history">History</a>
         <a href="/wish">Wish</a>
         <a href="/favorite">Favorite</a>
+        <a href="/admin-panel">Admin Panel</a>
       </nav>
     </header>
   );
@@ -36,7 +38,7 @@ function App() {
         <Route
           path="/wish"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={['ROLE_USER', 'ROLE_ADMIN']}>
               <Wish />
             </PrivateRoute>
           }
@@ -44,8 +46,16 @@ function App() {
         <Route
           path="/favorite"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={['ROLE_USER', 'ROLE_ADMIN']}>
               <Favorite />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin-panel"
+          element={
+            <PrivateRoute allowedRoles={['ROLE_ADMIN']}>
+              <AdminPanel />
             </PrivateRoute>
           }
         />
