@@ -49,6 +49,7 @@ const Wish = () => {
 
   return (
     <div className="input-page">
+      <h1>Generate a Wish</h1>
       <div className="large-textarea-wrapper">
         <textarea
           className="large-textarea"
