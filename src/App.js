@@ -8,6 +8,7 @@ import Favorite from './Components/Favorite';
 import PrivateRoute from './Components/PrivateRoute';
 import Logout from './Components/Logout';
 import AdminPanel from './Components/AdminPanel';
+import EditUser from './Components/EditUser';
 
 function Header() {
   const location = useLocation();
@@ -70,6 +71,14 @@ function App() {
           element={
             <PrivateRoute allowedRoles={['ROLE_ADMIN']}>
               <AdminPanel />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit-user/:username"
+          element={
+            <PrivateRoute allowedRoles={['ROLE_ADMIN']}>
+              <EditUser />
             </PrivateRoute>
           }
         />

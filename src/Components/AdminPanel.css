@@ -1,0 +1,118 @@
+/* Main container for the admin panel */
+.admin-panel {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff; /* White background for better contrast */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 10px; /* Rounded edges */
+  font-family: Arial, sans-serif; /* Simple font */
+  color: #333; /* Dark text for readability */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+/* Header styling */
+.admin-panel h1 {
+  font-size: 24px;
+  color: #007bff; /* Blue header text */
+  margin-bottom: 20px;
+  border-bottom: 2px solid #007bff; /* Add a bottom border for emphasis */
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Paragraph styling */
+.admin-panel p {
+  font-size: 16px;
+  color: #555; /* Medium gray text */
+  margin-bottom: 20px;
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Table styling */
+.user-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove gaps between table cells */
+  margin-top: 20px;
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 10px; /* Rounded edges for the table */
+  overflow: hidden; /* Ensures rounded edges apply to the table */
+}
+
+/* Table header styling */
+.user-table th {
+  background-color: #007bff; /* Blue header background */
+  color: white; /* White text for contrast */
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Table cell styling */
+.user-table td {
+  padding: 10px;
+  border: 1px solid #ddd; /* Subtle border for cells */
+  text-align: left;
+  color: #333; /* Dark text */
+}
+
+/* Alternating row colors for better readability */
+.user-table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light gray for alternating rows */
+}
+
+/* Hover effect for table rows */
+.user-table tr:hover {
+  background-color: #f1f1f1; /* Slightly darker gray on hover */
+}
+
+/* Message when no users are found */
+.no-users-message {
+  font-size: 16px;
+  color: #555;
+  margin-top: 20px;
+}
+
+/* Button styling */
+.action-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff; /* Blue background */
+  border: none;
+  border-radius: 5px; /* Rounded edges */
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+/* Button hover effect */
+.action-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Button styling for "Edit User" */
+.edit-user-button {
+  padding: 5px 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #007bff; /* Blue background */
+  border: none;
+  border-radius: 5px; /* Rounded edges */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the button */
+.edit-user-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
