@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import './AdminPanel.css';
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]); // State to store user data
   const [error, setError] = useState(null); // State to store errors
+  const navigate = useNavigate(); // React Router's navigation hook
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const token = sessionStorage.getItem('accessToken'); // Retrieve the token from sessionStorage
+        const token = sessionStorage.getItem('accessToken'); // Retrieve the token
         if (!token) {
           throw new Error('No token found. Please log in.');
         }
@@ -19,8 +22,7 @@ const AdminPanel = () => {
         });
 
         if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText || 'Failed to fetch users');
+          throw new Error('Failed to fetch users');
         }
 
         const data = await response.json();
@@ -34,36 +36,48 @@ const AdminPanel = () => {
     fetchUsers();
   }, []); // Only runs when the component is mounted
 
-  return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ textAlign: 'center', color: '#333' }}>Admin Panel</h1>
-      <p style={{ textAlign: 'center', color: '#555' }}>Welcome to the admin panel!</p>
+  const handleEditClick = (user) => {
+    // Navigate to the EditUser page with the username and roles as state
+    navigate(`/edit-user/${user.username}`, { state: { roles: user.roles } });
+  };
 
-      {error && <p style={{ color: 'red', textAlign: 'center' }}>Error: {error}</p>}
+  return (
+    <div className="admin-panel">
+      <h1>Admin Panel</h1>
+      <p>Welcome to the admin panel! Here you can view and edit user information.</p>
+
+      {error && <p className="error-message">Error: {error}</p>}
 
       {users.length > 0 ? (
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+        <table className="user-table">
           <thead>
-            <tr style={{ backgroundColor: '#f4f4f4', textAlign: 'left' }}>
-              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Username</th>
-              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Creation Date</th>
-              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Roles</th>
+            <tr>
+              <th>Username</th>
+              <th>Creation Date</th>
+              <th>Roles</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <tr key={index} style={{ borderBottom: '1px solid #ddd' }}>
-                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{user.username}</td>
-                <td style={{ padding: '10px', border: '1px solid #ddd' }}>
-                  {new Date(user.creationDate).toLocaleDateString()}
+              <tr key={index}>
+                <td>{user.username}</td>
+                <td>{new Date(user.creationDate).toLocaleDateString()}</td>
+                <td>{user.roles.join(', ')}</td>
+                <td>
+                  <button
+                    className="edit-user-button"
+                    onClick={() => handleEditClick(user)}
+                  >
+                    Edit User
+                  </button>
                 </td>
-                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{user.roles.join(', ')}</td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <p style={{ textAlign: 'center', color: '#555' }}>No users found.</p>
+        <p className="no-users-message">No users found.</p>
       )}
     </div>
   );

@@ -1,0 +1,99 @@
+/* Main container for the edit user form */
+.edit-user {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff; /* White background */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 10px; /* Rounded edges */
+  font-family: Arial, sans-serif;
+  color: #333; /* Dark text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Header styling */
+.edit-user h2 {
+  font-size: 20px;
+  color: #007bff; /* Blue header text */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: #555; /* Medium gray text */
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px; /* Rounded edges */
+  box-sizing: border-box;
+}
+
+/* Roles section styling */
+.roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.role-checkbox {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Actions (buttons) styling */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.save-button,
+.cancel-button,
+.reset-password-button {
+  padding: 8px 15px;
+  font-size: 14px;
+  color: white;
+  border: none;
+  border-radius: 5px; /* Rounded edges */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-button {
+  background-color: #007bff; /* Blue background */
+}
+
+.save-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.cancel-button {
+  background-color: #dc3545; /* Red background */
+}
+
+.cancel-button:hover {
+  background-color: #a71d2a; /* Darker red on hover */
+}
+
+.reset-password-button {
+  background-color: #ffc107; /* Yellow background */
+  color: #333; /* Dark text */
+}
+
+.reset-password-button:hover {
+  background-color: #e0a800; /* Darker yellow on hover */
+}
