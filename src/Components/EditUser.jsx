@@ -9,6 +9,7 @@ const EditUser = () => {
 
   const [newUsername, setNewUsername] = useState(username); // State for editing the username
   const [newRoles, setNewRoles] = useState(location.state?.roles || []); // State for editing roles
+  const [newPassword, setNewPassword] = useState(''); // State for changing the password
 
   const handleRoleChange = (role) => {
     if (newRoles.includes(role)) {
@@ -19,7 +20,7 @@ const EditUser = () => {
   };
 
   const handleSave = async () => {
-    // Save the updated user data
+    // Save the updated user data, including the new password
     const token = sessionStorage.getItem('accessToken');
     try {
       const response = await fetch(`http://localhost:8080/api/auth/users/${username}`, {
@@ -28,7 +29,7 @@ const EditUser = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ username: newUsername, roles: newRoles }),
+        body: JSON.stringify({ username: newUsername, roles: newRoles, password: newPassword }),
       });
 
       if (!response.ok) {
@@ -47,25 +48,26 @@ const EditUser = () => {
     navigate(-1); // Navigate back to the previous page
   };
 
-  const handleResetPassword = async () => {
-    // Reset the user's password to a default value
+  const handleDeleteUser = async () => {
+    // Delete the user
     const token = sessionStorage.getItem('accessToken');
     try {
-      const response = await fetch(`http://localhost:8080/api/auth/users/${username}/reset-password`, {
-        method: 'POST',
+      const response = await fetch(`http://localhost:8080/api/auth/users/${username}`, {
+        method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (!response.ok) {
-        throw new Error('Failed to reset password');
+        throw new Error('Failed to delete user');
       }
 
-      alert('Password reset to default successfully!');
+      alert('User deleted successfully!');
+      navigate('/admin-panel'); // Navigate back to the admin panel
     } catch (error) {
-      console.error('Error resetting password:', error.message);
-      alert('Failed to reset password.');
+      console.error('Error deleting user:', error.message);
+      alert('Failed to delete user.');
     }
   };
 
@@ -96,6 +98,16 @@ const EditUser = () => {
           ))}
         </div>
       </div>
+      <div className="form-group">
+        <label htmlFor="password">New Password:</label>
+        <input
+          type="password"
+          id="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          placeholder="Enter new password"
+        />
+      </div>
       <div className="actions">
         <button className="save-button" onClick={handleSave}>
           Save
@@ -103,10 +115,10 @@ const EditUser = () => {
         <button className="cancel-button" onClick={handleCancel}>
           Cancel
         </button>
-        <button className="reset-password-button" onClick={handleResetPassword}>
-          Reset Password to Default
-        </button>
       </div>
+      <button className="delete-user-button" onClick={handleDeleteUser}>
+        Delete User
+      </button>
     </div>
   );
 };
