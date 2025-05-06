@@ -54,7 +54,7 @@ const Wish = () => {
         <textarea
           className="large-textarea"
           maxLength="255"
-          placeholder="Type something awesome..."
+          placeholder="What kind of birthday wish would you like?"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />

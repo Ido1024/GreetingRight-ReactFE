@@ -44,7 +44,7 @@ const AdminPanel = () => {
   return (
     <div className="admin-panel">
       <h1>Admin Panel</h1>
-      <p>Welcome to the admin panel! Here you can view and edit user information.</p>
+      <p>Welcome to the Admin Panel. Here, you can manage and update user information.</p>
 
       {error && <p className="error-message">Error: {error}</p>}
 

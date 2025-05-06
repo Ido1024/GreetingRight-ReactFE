@@ -20,16 +20,26 @@ const EditUser = () => {
   };
 
   const handleSave = async () => {
-    // Save the updated user data, including the new password
     const token = sessionStorage.getItem('accessToken');
     try {
+      // Prepare the request body
+      const requestBody = {
+        username: newUsername,
+        roles: newRoles,
+      };
+
+      // Include the password only if it has been modified
+      if (newPassword.trim() !== '') {
+        requestBody.password = newPassword;
+      }
+
       const response = await fetch(`http://localhost:8080/api/auth/users/${username}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ username: newUsername, roles: newRoles, password: newPassword }),
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {
