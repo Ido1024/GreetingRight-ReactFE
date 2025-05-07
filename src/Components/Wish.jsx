@@ -4,78 +4,79 @@ import './Wish.css';
 
 const Wish = () => {
   const [text, setText] = useState('');
-  const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
+  const [wishes, setWishes] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('favorites') || '[]');
-    setFavorites(stored);
+    const storedWishes = JSON.parse(localStorage.getItem('wishes') || '[]');
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    setWishes(storedWishes.slice(0, 3)); // Load only 3 most recent
+    setFavorites(storedFavorites);
   }, []);
-
-  const updateFavorites = (newList) => {
-    setFavorites(newList);
-    localStorage.setItem('favorites', JSON.stringify(newList));
-  };
 
   const handleSubmit = async () => {
     if (!text.trim()) return;
 
     setLoading(true);
-    setResult('');
-
     try {
       const wish = await generateWish(text);
-      setResult(wish || 'No wish returned.');
+      const newWish = wish || 'No wish returned.';
+      const updatedWishes = [newWish, ...wishes].slice(0, 3); // Keep only 3
+      setWishes(updatedWishes);
+      localStorage.setItem('wishes', JSON.stringify(updatedWishes));
+      setText('');
     } catch (err) {
       console.error(err);
-      setResult('Error generating wish.');
+      alert('Error generating wish.');
     } finally {
       setLoading(false);
     }
   };
 
-  const toggleFavorite = () => {
-    if (!result) return;
-
-    const updated = favorites.includes(result)
-      ? favorites.filter((w) => w !== result)
-      : [...favorites, result];
-
-    updateFavorites(updated);
+  const toggleFavorite = (wish) => {
+    const updatedFavorites = favorites.includes(wish)
+      ? favorites.filter((w) => w !== wish)
+      : [...favorites, wish];
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 
-  const isFavorite = result && favorites.includes(result);
-
   return (
-    <div className="input-page">
-      <h1>Generate a Wish</h1>
+    <div className="page-container">
+      <h1 className="center-title">Generate a Wish</h1>
+
       <div className="large-textarea-wrapper">
         <textarea
           className="large-textarea"
           maxLength="255"
-          placeholder="What kind of birthday wish would you like?"
+          placeholder="Type your wish inspiration..."
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
         <div className="char-counter">{text.length}/255</div>
       </div>
 
-      <button className="action-button" onClick={handleSubmit} disabled={loading}>
-        {loading ? 'Generating...' : 'Submit'}
-      </button>
+      <div className="center-button">
+        <button className="action-button" onClick={handleSubmit} disabled={loading}>
+          {loading ? 'Generating...' : 'Submit'}
+        </button>
+      </div>
 
-      {result && (
-        <div className="result-box">
+      {wishes.map((wish, index) => (
+        <div key={index} className="result-box">
           <div className="wish-header">
-            <h3>Generated Wish:</h3>
-            <span className={`star-icon ${isFavorite ? 'favorited' : ''}`} onClick={toggleFavorite}>
+            <h4>Wish #{index + 1}</h4>
+            <span
+              className={`star-icon ${favorites.includes(wish) ? 'favorited' : ''}`}
+              onClick={() => toggleFavorite(wish)}
+            >
               ★
             </span>
           </div>
-          <p>{result}</p>
+          <p>{wish}</p>
         </div>
-      )}
+      ))}
     </div>
   );
 };
