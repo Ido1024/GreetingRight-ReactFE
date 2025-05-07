@@ -34,8 +34,6 @@ function Header() {
     <header className="header">
       <nav className="nav-bar">
         <a href="/logout">Logout</a>
-        <a href="/help">Help</a>
-        <a href="/history">History</a>
         <a href="/wish">Wish</a>
         <a href="/favorite">Favorite</a>
         {isAdmin && <a href="/admin-panel">Admin Panel</a>}
