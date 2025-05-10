@@ -1,18 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { fetchFavoriteWishes, toggleFavoriteStatus } from '../api/wishService';
 import './Wish.css';
 
 const Favorite = () => {
   const [favorites, setFavorites] = useState([]);
 
+  // Fetch favorite wishes from the backend
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    setFavorites(storedFavorites);
+    const loadFavorites = async () => {
+      try {
+        const favoriteWishes = await fetchFavoriteWishes(); // Fetch favorite wishes from the backend
+        setFavorites(favoriteWishes); // Update the state with the fetched favorites
+      } catch (error) {
+        console.error('Error loading favorite wishes:', error.message);
+      }
+    };
+
+    loadFavorites();
   }, []);
 
-  const removeFavorite = (wishToRemove) => {
-    const updated = favorites.filter((wish) => wish !== wishToRemove);
-    setFavorites(updated);
-    localStorage.setItem('favorites', JSON.stringify(updated));
+  const removeFavorite = async (wish) => {
+    try {
+      await toggleFavoriteStatus(wish.id); // Toggle the favorite status in the backend
+      const updatedFavorites = await fetchFavoriteWishes(); // Refresh the favorite wishes
+      setFavorites(updatedFavorites); // Update the state with the refreshed favorites
+    } catch (error) {
+      console.error('Error toggling favorite status:', error.message);
+    }
   };
 
   return (
@@ -36,7 +50,7 @@ const Favorite = () => {
                 ★
               </span>
             </div>
-            <p>{wish}</p>
+            <p>{wish.birthdayWish}</p>
           </div>
         ))
       )}

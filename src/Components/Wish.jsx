@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { generateWish } from '../api/wishService';
+import { generateWish, fetchRecentWishes, toggleFavoriteStatus } from '../api/wishService';
 import './Wish.css';
 
 const Wish = () => {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
   const [wishes, setWishes] = useState([]);
-  const [favorites, setFavorites] = useState([]);
 
+  // Fetch recent wishes from the backend
   useEffect(() => {
-    const storedWishes = JSON.parse(localStorage.getItem('wishes') || '[]');
-    const storedFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    setWishes(storedWishes.slice(0, 3)); // Load only 3 most recent
-    setFavorites(storedFavorites);
+    const loadWishes = async () => {
+      try {
+        const recentWishes = await fetchRecentWishes(); // Fetch recent wishes from the backend
+        console.log('Recent Wishes:', recentWishes); // Log the fetched wishes
+        setWishes(recentWishes); // Update the state with the fetched wishes
+      } catch (error) {
+        console.error('Error loading recent wishes:', error.message);
+      }
+    };
+
+    loadWishes();
   }, []);
 
   const handleSubmit = async () => {
@@ -20,11 +27,9 @@ const Wish = () => {
 
     setLoading(true);
     try {
-      const wish = await generateWish(text);
-      const newWish = wish || 'No wish returned.';
-      const updatedWishes = [newWish, ...wishes].slice(0, 3); // Keep only 3
-      setWishes(updatedWishes);
-      localStorage.setItem('wishes', JSON.stringify(updatedWishes));
+      await generateWish(text); // Generate a new wish in the backend
+      const updatedWishes = await fetchRecentWishes(); // Fetch the updated recent wishes
+      setWishes(updatedWishes); // Update the state with the new wishes
       setText('');
     } catch (err) {
       console.error(err);
@@ -34,12 +39,14 @@ const Wish = () => {
     }
   };
 
-  const toggleFavorite = (wish) => {
-    const updatedFavorites = favorites.includes(wish)
-      ? favorites.filter((w) => w !== wish)
-      : [...favorites, wish];
-    setFavorites(updatedFavorites);
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  const toggleFavorite = async (wish) => {
+    try {
+      await toggleFavoriteStatus(wish.id); // Toggle the favorite status in the backend
+      const updatedWishes = await fetchRecentWishes(); // Refresh the recent wishes
+      setWishes(updatedWishes); // Update the state with the refreshed wishes
+    } catch (error) {
+      console.error('Error toggling favorite status:', error.message);
+    }
   };
 
   return (
@@ -68,13 +75,13 @@ const Wish = () => {
           <div className="wish-header">
             <h4>Wish #{index + 1}</h4>
             <span
-              className={`star-icon ${favorites.includes(wish) ? 'favorited' : ''}`}
+              className={`star-icon ${wish.favorite ? 'favorited' : ''}`} // Use `wish.favorite` instead of `wish.isFavorite`
               onClick={() => toggleFavorite(wish)}
             >
               ★
             </span>
           </div>
-          <p>{wish}</p>
+          <p>{wish.birthdayWish}</p>
         </div>
       ))}
     </div>
