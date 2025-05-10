@@ -1,7 +1,7 @@
 const API_BASE_URL = 'http://localhost:8080/api/auth'; // Spring Boot backend base URL
 
 /**
- * Generate a new wish by sending a request to the Spring Boot backend.
+ * Generate a new wish by sending a request to the Spring Boot backend. 
  * @param {string} text - The user's input for generating a wish.
  * @returns {Promise<string>} - The generated wish.
  */
