@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css'; // Global styles
+import logo from './new-logo.svg'; 
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 import Wish from './Components/Wish';
