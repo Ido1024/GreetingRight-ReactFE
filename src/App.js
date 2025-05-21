@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css'; // Global styles
-import logo from './new-logo.svg'; 
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 import Wish from './Components/Wish';
@@ -21,6 +20,7 @@ function Header() {
   let isAdmin = false;
 
   if (token) {
+    // Decode the JWT token to check for admin role
     try {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

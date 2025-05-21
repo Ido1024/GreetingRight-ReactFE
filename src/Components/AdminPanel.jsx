@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useNavigate } from 'react-router-dom';
 import './AdminPanel.css';
+import { authFetch } from '../utils/authFetch';
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]); // State to store user data
   const [error, setError] = useState(null); // State to store errors
-  const navigate = useNavigate(); // React Router's navigation hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const token = sessionStorage.getItem('accessToken'); // Retrieve the token
+        const token = sessionStorage.getItem('accessToken'); 
         if (!token) {
           throw new Error('No token found. Please log in.');
         }
 
         const response = await fetch('http://localhost:8080/api/auth/users', {
           headers: {
-            Authorization: `Bearer ${token}`, // Include the Bearer token
+            Authorization: `Bearer ${token}`, 
           },
         });
 

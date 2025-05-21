@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { authFetch } from '../utils/authFetch';
 
 const decodeToken = (token) => {
   try {
@@ -17,6 +18,7 @@ const decodeToken = (token) => {
     return null;
   }
 };
+
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const token = sessionStorage.getItem('accessToken');

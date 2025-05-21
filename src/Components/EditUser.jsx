@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import './EditUser.css';
+import { authFetch } from '../utils/authFetch';
 
 const EditUser = () => {
   const { username } = useParams(); // Get the username from the URL
   const location = useLocation(); // Get the state passed via navigation
-  const navigate = useNavigate(); // React Router's navigation hook
+  const navigate = useNavigate(); 
 
   const [newUsername, setNewUsername] = useState(username); // State for editing the username
   const [newRoles, setNewRoles] = useState(location.state?.roles || []); // State for editing roles

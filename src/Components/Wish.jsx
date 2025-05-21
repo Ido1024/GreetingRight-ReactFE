@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { generateWish, fetchRecentWishes, toggleFavoriteStatus } from '../api/wishService';
 import './Wish.css';
+import { authFetch } from '../utils/authFetch';
 
 const Wish = () => {
   const [text, setText] = useState('');
@@ -75,7 +76,7 @@ const Wish = () => {
           <div className="wish-header">
             <h4>Wish #{index + 1}</h4>
             <span
-              className={`star-icon ${wish.favorite ? 'favorited' : ''}`} // Use `wish.favorite` instead of `wish.isFavorite`
+              className={`star-icon ${wish.favorite ? 'favorited' : ''}`} 
               onClick={() => toggleFavorite(wish)}
             >
               ★

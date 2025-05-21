@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { fetchFavoriteWishes, toggleFavoriteStatus } from '../api/wishService';
 import './Wish.css';
+import { authFetch } from '../utils/authFetch';
 
 const Favorite = () => {
   const [favorites, setFavorites] = useState([]);
 
-  // Fetch favorite wishes from the backend
   useEffect(() => {
     const loadFavorites = async () => {
       try {
@@ -35,7 +35,7 @@ const Favorite = () => {
 
       {favorites.length === 0 ? (
         <p style={{ textAlign: 'center', fontSize: '1.1rem' }}>
-          You don't have any favorite wishes yet. ⭐
+          You don't have any favorite wishes yet. 
         </p>
       ) : (
         favorites.map((wish, index) => (

@@ -1,4 +1,3 @@
-// src/api/authService.js
 const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
 
 const handleResponse = async (response) => {
@@ -34,7 +33,7 @@ export async function signupUser(credentials) {
     body: JSON.stringify(credentials),
   });
 
-  return await handleResponse(response); // Returns success message
+  return await handleResponse(response); 
 }
 
 export async function refreshToken(token) {

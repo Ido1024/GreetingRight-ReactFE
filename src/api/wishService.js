@@ -13,9 +13,9 @@ export const generateWish = async (text) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Add the Authorization header
+        Authorization: `Bearer ${token}`, // Authorization header
       },
-      body: JSON.stringify({ text }), // Only send the text
+      body: JSON.stringify({ text }), 
     });
 
     if (!response.ok) {
@@ -41,13 +41,13 @@ export const generateWish = async (text) => {
  * @returns {Promise<Array>} - The recent 3 wishes.
  */
 export const fetchRecentWishes = async () => {
-  const token = sessionStorage.getItem('accessToken'); // Retrieve the token from sessionStorage
+  const token = sessionStorage.getItem('accessToken'); 
 
   try {
     const response = await fetch(`${API_BASE_URL}/wishes/recent`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`, // Add the Authorization header
+        Authorization: `Bearer ${token}`, // Authorization header
       },
     });
 
@@ -74,13 +74,12 @@ export const fetchRecentWishes = async () => {
  * @returns {Promise<Array>} - The favorite wishes.
  */
 export const fetchFavoriteWishes = async () => {
-  const token = sessionStorage.getItem('accessToken'); // Retrieve the token from sessionStorage
-
+  const token = sessionStorage.getItem('accessToken'); 
   try {
     const response = await fetch(`${API_BASE_URL}/wishes/favorites`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`, // Add the Authorization header
+        Authorization: `Bearer ${token}`, // Authorization header
       },
     });
 
@@ -108,13 +107,13 @@ export const fetchFavoriteWishes = async () => {
  * @returns {Promise<string>} - A success message.
  */
 export const toggleFavoriteStatus = async (wishId) => {
-  const token = sessionStorage.getItem('accessToken'); // Retrieve the token from sessionStorage
+  const token = sessionStorage.getItem('accessToken'); 
 
   try {
     const response = await fetch(`${API_BASE_URL}/wishes/${wishId}/favorite`, {
       method: 'PUT',
       headers: {
-        Authorization: `Bearer ${token}`, // Add the Authorization header
+        Authorization: `Bearer ${token}`, // Authorization header
       },
     });
 
@@ -128,8 +127,8 @@ export const toggleFavoriteStatus = async (wishId) => {
       throw new Error(errorData.error || 'Internal error');
     }
 
-    const data = await response.text(); // The backend returns a success message as plain text
-    return data; // Return the success message
+    const data = await response.text(); // The backend returns a success message 
+    return data; 
   } catch (error) {
     console.error('Error toggling favorite status:', error.message);
     throw error;

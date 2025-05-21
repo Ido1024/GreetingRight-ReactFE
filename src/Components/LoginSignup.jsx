@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser, signupUser } from '../api/authService';
 import './LoginSignup.css';
+import { authFetch } from '../utils/authFetch';
 
 function LoginSignup() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function LoginSignup() {
     try {
       await loginUser({ username: loginUsername, password: loginPassword });
       setLoginAlert({ type: 'success', message: 'Login successful.' });
-      setTimeout(() => navigate('/wish'), 1000);
+      setTimeout(() => navigate('/wish'), 1000); // Redirect to the wish page after 1 second
     } catch (err) {
       setLoginAlert({ type: 'error', message: err.message });
     }
