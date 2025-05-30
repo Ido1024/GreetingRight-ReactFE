@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchFavoriteWishes, toggleFavoriteStatus } from '../api/wishService';
 import './Wish.css';
-import { authFetch } from '../utils/authFetch';
 
 const Favorite = () => {
   const [favorites, setFavorites] = useState([]);

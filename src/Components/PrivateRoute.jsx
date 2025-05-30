@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { authFetch } from '../utils/authFetch';
 
 const decodeToken = (token) => {
   try {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminPanel.css';
-import { authFetch } from '../utils/authFetch';
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]); // State to store user data

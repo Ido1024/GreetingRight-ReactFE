@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser, signupUser } from '../api/authService';
 import './LoginSignup.css';
-import { authFetch } from '../utils/authFetch';
 
 function LoginSignup() {
   const navigate = useNavigate();

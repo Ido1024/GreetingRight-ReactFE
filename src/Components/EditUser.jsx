@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import './EditUser.css';
-import { authFetch } from '../utils/authFetch';
 
 const EditUser = () => {
   const { username } = useParams(); // Get the username from the URL
