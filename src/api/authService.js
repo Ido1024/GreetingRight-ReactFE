@@ -10,7 +10,7 @@ const handleResponse = async (response) => {
     throw new Error(error);
   }
 
-  return data;
+  return data; 
 };
 
 export async function loginUser(credentials) {
