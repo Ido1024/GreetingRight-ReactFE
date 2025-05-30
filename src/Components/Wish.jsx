@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { generateWish, fetchRecentWishes, toggleFavoriteStatus } from '../api/wishService';
 import './Wish.css';
-import { authFetch } from '../utils/authFetch';
 
 const Wish = () => {
   const [text, setText] = useState('');
